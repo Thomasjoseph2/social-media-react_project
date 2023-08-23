@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import store from "./store.js";
+import { Provider } from "react-redux";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -22,7 +24,9 @@ const router=createBrowserRouter(createRoutesFromElements(
   </Route>
 ))
 ReactDOM.createRoot(document.getElementById("root")).render(
+  <Provider store={store}>
   <React.StrictMode>
  <RouterProvider router={router}/>
   </React.StrictMode>
+  </Provider>
 );

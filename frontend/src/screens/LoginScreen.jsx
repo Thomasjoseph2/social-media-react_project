@@ -1,15 +1,38 @@
-import React,{ useState } from "react";
-import { Link } from "react-router-dom";
+import React,{ useState,useEffect } from "react";
+import { Link ,useNavigate} from "react-router-dom";
 import {Form ,Button,Row,Col} from 'react-bootstrap';
+import {useDispatch,useSelector} from 'react-redux'
 import FormContainer from "../components/FormContainer";
-
+import {useLoginMutation} from '../slices/usersApislice';
+import { setCredentials } from "../slices/authSlice";
+import {toast} from 'react-toastify'
 const LoginScreen = () => {
    const [email,setEmail]=useState('');
    const [password,setPassword]=useState('');
 
+   const navigate=useNavigate();
+   const dispatch=useDispatch();
+  
+   const {userInfo}=useSelector((state)=>state.auth);
+   const [login,{isLoading}]=useLoginMutation();
+
+   useEffect(()=>{
+
+    if(userInfo){
+      navigate('/');
+    }
+   },[navigate,userInfo])
+
+
    const submitHandler=async (e)=>{
     e.preventDefault();
-    console.log("submit");
+  try {
+      const res=await login({email,password}).unwrap();
+      dispatch(setCredentials({...res}))
+      navigate('/')
+  } catch (error) {
+    toast.error(error.data.message || error.error);
+  }
    }
   return (
     <FormContainer>
