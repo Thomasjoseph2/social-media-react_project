@@ -6,7 +6,7 @@ import { useLogoutMutation } from '../slices/usersApislice';
 import { logout } from '../slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 const Header = () => {
-  const {userInfo}=useSelector((state)=>state.auth)
+  const {userInfo }=useSelector((state)=>state.auth)
 
   const dispatch =useDispatch();
   const navigate=useNavigate();

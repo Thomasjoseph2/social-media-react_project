@@ -12,7 +12,7 @@ const RegisterScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword,SetConfirmPassword]=useState("")
-
+  
   const navigate=useNavigate();
   const dispatch=useDispatch();
 
@@ -20,26 +20,26 @@ const RegisterScreen = () => {
   const [register,{isLoading}]=useRegisterMutation();
 
 
-  // useEffect(()=>{
+  useEffect(()=>{
 
-  //   if(userInfo){
-  //     navigate('/');
-  //   }
-  //  },[navigate,userInfo])
+    if(userInfo){
+      navigate('/');
+    }
+   },[navigate,userInfo])
 
   const submitHandler = async (e) => {
     e.preventDefault();
-      // if(password !==confirmPassword){
-      //   toast.error('passwords do not match')
-      // }else{
-      //   try {
-      //     const res=await register({name,email,password}).unwrap();
-      //     dispatch(setCredentials({...res}))
-      //     navigate('/')
-      //   } catch (error) {
-      //     toast.error(error.data.message || error.error);
-      //   }
-      // }
+      if(password !==confirmPassword){
+        toast.error('passwords do not match')
+      }else{
+        try {
+          const res=await register({name,email,password}).unwrap();
+          dispatch(setCredentials({...res}))
+          navigate('/')
+        } catch (error) {
+          toast.error(error.data.message || error.error);
+        }
+      }
   };
   return (
     <FormContainer>

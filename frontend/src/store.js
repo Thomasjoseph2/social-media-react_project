@@ -4,11 +4,15 @@ import authReducer from './slices/authSlice';
 
 import { apiSlice } from './slices/apiSlice';
 
+import adminAuthReducer from './slices/adminAuthSlice';
+
 const store = configureStore({
 
     reducer:{
 
         auth:authReducer,
+
+        adminAuth:adminAuthReducer,
 
         [apiSlice.reducerPath]:apiSlice.reducer,
 

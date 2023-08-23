@@ -22,6 +22,9 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
 
       email: user.email,
+     
+      image:user.imagePath
+
 
     });
 
@@ -40,7 +43,8 @@ const authUser = asyncHandler(async (req, res) => {
 //@access public
 
 const registerUser = asyncHandler(async (req, res) => {
-
+  
+  console.log(req.body,"hkjglkgk");
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -114,37 +118,30 @@ const profile = asyncHandler(async (req, res) => {
 //@user update user profile
 //@ route PUT api/users/profile
 //@access private(need to have access and the valid tokken)
-
 const updateUserProfile = asyncHandler(async (req, res) => {
-
-  const user = await User.findById(req.user._id);
-
+  console.log(req.file,"kkkkkkkk");
+  const user = await User.findById(req.body._id);
+  
   if (user) {
-
     user.name = req.body.name || user.name;
-
     user.email = req.body.email || user.email;
-
-    if (req.password) {
-
-      user.password = req.body.password;
-
+    if(req.file){
+     user.imagePath = req.file.filename || user.imagePath;
     }
 
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
     const updatedUser = await user.save();
-
-    res.status(200).json({_id:updatedUser._id,name:updatedUser.name,email:updatedUser.email})
-
-
-
+    res.status(200).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      image:updatedUser.imagePath
+    });
   } else {
-
     res.status(404);
-
-    throw new Error("user not found");
-
+    throw new Error("User not found");
   }
-
 });
-
 export { authUser, registerUser, logoutUser, profile, updateUserProfile };
