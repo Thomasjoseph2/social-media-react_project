@@ -126,4 +126,23 @@ const users = asyncHandler(async (req, res) => {
         res.status(500).json({ message: "Server error" });
       }
     });
-  export { authAdmin,  logoutAdmin,users ,deleteUser};
+
+    const updateUser = asyncHandler(async (req, res) => {
+      const user = await User.findById(req.body._id);
+      if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email
+    
+       
+        const updatedUser = await user.save();
+        res.status(200).json({
+          _id: updatedUser._id,
+          name: updatedUser.name,
+          email: updatedUser.email,
+        });
+      } else {
+        res.status(404);
+        throw new Error("User not found");
+      }
+    });
+  export { authAdmin,  logoutAdmin,users ,deleteUser,updateUser};

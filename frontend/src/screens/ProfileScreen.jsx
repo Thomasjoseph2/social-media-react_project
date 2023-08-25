@@ -42,12 +42,6 @@ const ProfileScreen = () => {
       formData.append('file', image);
 
       const res=await updateProfile(formData).unwrap();
-        // const res = await updateProfile({
-        //   _id: userInfo._id,
-        //   name,
-        //   email,
-        //   password,
-        // }).unwrap();
         dispatch(setCredentials({ ...res }));
         toast.success("profile updated");
       } catch (error) {

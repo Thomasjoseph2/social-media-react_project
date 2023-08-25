@@ -70,6 +70,8 @@ const RegisterScreen = () => {
             type="password"
             placeholder="Enter password"
             value={password}
+            required
+            minLength={6}
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
@@ -79,6 +81,8 @@ const RegisterScreen = () => {
             type="password"
             placeholder="Confirm Password"
             value={confirmPassword}
+            required
+            minLength={6}
             onChange={(e) => SetConfirmPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>

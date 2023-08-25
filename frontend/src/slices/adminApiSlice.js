@@ -31,16 +31,17 @@ export const adminApiSlice = apiSlice.injectEndpoints({
         body: data,
       })
     }),
-    // updateUser:builder.mutation({
-    //   query:(data)=>({
-    //     url:`${ADMIN_URL}/profile`,
-    //     method:'PUT',
-    //     body:data
-    //   })
-    // })
+    updateUser:builder.mutation({
+      query:(data)=>({
+        url:`${USERS_URL}/updateUser`,
+        method:'PUT',
+        body:data
+      })
+    })
+
   }),
 
 
 });
 
-export const {useAdminLoginMutation,useAdminLogoutMutation,useUsersMutation,useDeleteUserMutation}=adminApiSlice;
+export const {useAdminLoginMutation,useAdminLogoutMutation,useUsersMutation,useDeleteUserMutation,useUpdateUserMutation}=adminApiSlice;
